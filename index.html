@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="ie ie6" lang="en">
+<html class="ie ie7" lang="en">
+<html class="ie ie8" lang="en">
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Kun Zhang's Homepage</title>
+  	<link rel="stylesheet" href="css/zerogrid.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="wrap-body zerogrid">
+
+<header>
+	<div class="wrap-header">
+		<nav>
+			<div class="wrap-nav">
+					<div class="menu">
+					<a href="index.html">Dr. Kun Zhang's Homepage</a>
+					</div>
+			</div>
+		</nav>
+	</div>
+
+</header>
+
+<!--------------Content--------------->
+<section id="content">
+	<div class="wrap-content">
+		<div class="row block">
+			<div id="main-content">
+				<div class="wrap-col">
+					<article>
+						<div class="content2">
+							<img src="./files/images/zhkun.jpg" width=150px height=100px />
+							<br>
+							<h4 align="center" style="font-size: 25px;line-height: 30px"><strong>Kun Zhang  张琨</strong></h4>
+							<h4 align="center" style="font-size: 23px;line-height: 30px"><strong>Master's Degree Supervisor</strong></h4>
+							<h5 align="left"><a href="http://39.104.72.142" target=“-parent”>
+								Key Laboratory of Knowledge Engineering with Big Data</a>,&nbsp;&nbsp;<a href="http://lmc.hfut.edu.cn">Lab for Multimedia Computing,</a></h5>
+							<h5 align="left"><a href="http://ci.hfut.edu.cn/">
+								School of Computer Sci & Information Engineering, &nbsp;&nbsp;School of Artificial Intelligence
+							</a></h5>
+							<h5 align="left"><a href="http://www.hfut.edu.cn/">Hefei University of Technology (HFUT).</a></h5>
+							<h5 align="left">
+								<strong>Office:</strong>&nbsp;&nbsp;Room 906, Kejiao A Building, Feicui Campus of HFUT, Hefei, Anhui, China, 230601.<br>
+								<strong>Email:</strong>&nbsp;&nbsp;zhkun@hfut.edu.cn&nbsp;&nbsp;zhang1028kun@gmail.com</h5>
+
+						</div>
+					</article>
+
+					<article>
+						<div class="heading">
+							<h2><a name="interest">Research Interests</a></h2>
+						</div>
+
+						<div class="content">
+							<h5><ul>
+									<li>Natural language processing</li>
+									<li>Recommender Systems</li>
+								</ul>
+								</h5>
+								<p align="center" style="font-size: 24px;">
+									I am looking for self-motivated undergraduate students and master students. Feel free to contact me!
+								</p>
+						</div>
+					</article>
+
+          <article>
+						<div class="heading">
+							<h2><a name="news">News</a></h2>
+						</div>
+						<div class="content">
+	              <div id="NEWS_JSON"></div>
+  							<script>
+                    fetch('./files/News.json')
+                      .then(response => response.json())
+                      .then(data => {
+                        const NewsList = document.getElementById('NEWS_JSON');
+                        data.forEach((paper, index) => {
+                          const listItem = document.createElement('li');
+                          const time = paper.Time;
+                          const content = paper.Content;
+                          listItem.innerHTML = time + " " + content
+                          if (index < 10){
+                              NewsList.appendChild(listItem);
+                          }
+                        });
+                      });
+              </script>
+							</ul>
+							</h5>
+						</div>
+					</article>
+  
+					<article>
+						<div class="heading">
+							<h2><a name="representative">Representative Publications</a></h2>
+						</div>
+            
+						<div class="content6">
+							<h4 style="text-align:center;margin:10px 0 10px 0;font-size: 23px;"><strong>Conference Papers</strong></h4>
+							<h5>
+							<ul>
+             <div id="Conference_JSON"></div>
+  							<script>
+                    fetch('./files/conf_papers.json')
+                      .then(response => response.json())
+                      .then(data => {
+                        const paperList = document.getElementById('Conference_JSON');
+                        data.forEach((paper, index) => {
+                          const listItem = document.createElement('li');
+                          const authorText = paper.authors.replace(/(Kun Zhang)/g, '<strong>$1</strong>');
+                          listItem.innerHTML = authorText + paper.title + paper.conference_full + '<strong>' + paper.conference_short + '</strong>';
+                          if (paper.page != ""){
+                              listItem.innerHTML += (', ' + paper.page);
+                          }
+                          if (paper.date != ""){
+                              listItem.innerHTML += (', ' + paper.date);
+                          }
+                          if (paper.address != ""){
+                              listItem.innerHTML += (', ' + paper.address);
+                          }
+                          listItem.innerHTML += '. ';
+                          const link_pdf = document.createElement('a');
+                          link_pdf.href = "./files/papers/" + paper.url;
+                          link_pdf.textContent = "[PDF]";
+                          listItem.appendChild(link_pdf);
+                          paperList.appendChild(listItem);
+                          if (paper.code != ""){
+                              link_code = document.createElement('a');
+                              link_code.href = paper.code;
+                              link_code.textContent = "[Code]";
+                              listItem.appendChild(link_code);
+                              paperList.appendChild(listItem);
+                          }
+                          
+                          if (index != data.length - 1) {
+                            const lineBreak = document.createElement('br');
+                            paperList.appendChild(lineBreak);
+                          }
+                        });
+                      });
+              </script>
+							</ul>
+							</h5>
+							<h4 style="text-align:center;margin:10px 0 10px 0;font-size: 23px;"><strong>Journal Papers</strong></h4>
+							<h5>
+							<ul>
+              <div id="Journal_JSON"></div>
+                  <script>
+                    fetch('./files/jour_papers.json')
+                      .then(response => response.json())
+                      .then(data => {
+                        const paperList = document.getElementById('Journal_JSON');
+                        data.forEach((paper, index) => {
+                          const listItem = document.createElement('li');
+                          const authorText = paper.authors.replace(/(Kun Zhang)/g, '<strong>$1</strong>');
+                          listItem.innerHTML = authorText + paper.title + paper.journal_full + '<strong>' + paper.journal_short + '</strong>';
+                          if (paper.page != ""){
+                              listItem.innerHTML += (', ' + paper.page);
+                          }
+                          if (paper.date != ""){
+                              listItem.innerHTML += (', ' + paper.date);
+                          }
+                          listItem.innerHTML += '. ';
+                          const link_pdf = document.createElement('a');
+                          link_pdf.href = "./files/papers/" + paper.url;
+                          link_pdf.textContent = "[PDF]";
+                          listItem.appendChild(link_pdf);
+                          paperList.appendChild(listItem);
+                          if (paper.code != ""){
+                              link_code = document.createElement('a');
+                              link_code.href = paper.code;
+                              link_code.textContent = "[Code]";
+                              listItem.appendChild(link_code);
+                              paperList.appendChild(listItem);
+                          }
+                          
+                          if (index != data.length - 1) {
+                            const lineBreak = document.createElement('br');
+                            paperList.appendChild(lineBreak);
+                          }
+                        });
+                      });
+              </script>
+							</ul>
+								</h5>
+
+						</div>
+					</article>
+
+					<article>
+						<div class="heading">
+							<h2><a name="service">Services</a></h2>
+						</div>
+						<div class="content7">
+							<h5>
+							<ul>
+							<li>Member of Special Interest Group on Information Retrieval, Chinese Information Processing Society of China</li>
+							<li>Member of Special Interest Group on Artificial Intelligence and Pattern Recognition, China Computer Federation</li>
+							<li>Member of IEEE, ACM</li>
+							<li>Conference Reviewers:</li></ul>
+								<li>Senior PC: AAAI 2021, IJCAI 2021</li>
+								<li>PC: AAAI, IJCAI, WWW, NeuralPS, KDD, CIKM, MM, ICDM, et al.</li>
+								<ul><li>Journal Reviewers:</li></ul>
+									<li>TKDE, TNNLS, TOIS, TSMC: Systems, TMC, TIST et al.</li>
+									<li>SCIENTIA SINICA Informationis, Frontiers of Computer Sience, 计算机学报, 软件学报</li>
+							</h5>
+						</div>
+					</article>
+
+					<article>
+						<div class="heading">
+							<h2><a name="awards">Awards</a></h2>
+						</div>
+						<div class="content">
+							<h5>
+							<ul>
+								<li>2021.01  <strong style="color: #D2691E;">Youth Talent Promotion Project, China Association for Science and Technology</strong></li>
+							<li>2020.05  Youth Talent Promotion Project, Anhui Association for Science and Technology</li>
+							<li>2017.07  <strong style="color: #D2691E;">Outstanding Dissertation Award, Chinese Association for Artificial Intelligence</strong></li>
+							<li>2017.05  Star-Track Visiting Program, Microsoft Research</li>
+							<li>2015.03  Best of SDM paper Award, SIAM SDM 2015</li>
+							<li>2013.08  Outstanding Student Paper Award, The 17th China Conference on Machine Learning</li>
+							</ul>
+								</h5>
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--------------Footer--------------->
+<footer>
+	<div class="copyright">
+		<a href="https://beian.miit.gov.cn">皖ICP备2020018349号-1</a>
+<!--		<a href="https://beian.miit.gov.cn"></a>-->
+	</div>
+</footer>
+
+</div>
+</body>
+</html>
